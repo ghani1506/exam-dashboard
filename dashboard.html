@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exam Performance Dashboard (Years 7–10)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; background:#f4f6f9; color:#333;}
+    header {background:#004080; color:white; padding:16px 24px;}
+    header h1 {margin:0; font-size:22px;}
+    header p {margin:4px 0 0 0; font-size:13px; opacity:0.9;}
+    main {padding:16px 24px;}
+    .top-bar {display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end; margin-bottom:16px;}
+    .card {background:white; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:16px;}
+    .card h2 {margin-top:0; font-size:18px;}
+    .kpi-container {display:flex; flex-wrap:wrap; gap:16px;}
+    .kpi {flex:1 1 160px; background:#f9fbff; border-radius:8px; padding:12px 14px; border:1px solid #dbe4f0;}
+    .kpi-label {font-size:12px; text-transform:uppercase; color:#666; letter-spacing:0.5px;}
+    .kpi-value {font-size:20px; font-weight:bold; margin-top:4px;}
+    .controls label {font-size:13px; margin-right:6px;}
+    select {padding:6px 8px; font-size:13px;}
+    .charts-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px;}
+    .placeholder {font-size:13px; color:#777;}
+    .chart-wrapper {position:relative; min-height:320px;}
+    canvas {width:100% !important; height:100% !important;}
+    .small-note {font-size:11px; color:#666; margin-top:4px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Exam Performance Dashboard</h1>
+    <p>View End-of-Year performance for Years 7–10. Each year uses its own Excel analysis file stored inside this system (no need to upload each time).</p>
+  </header>
+
+  <main>
+    <div class="top-bar card">
+      <div>
+        <label for="yearSelect"><strong>1. Select year level:</strong></label><br />
+        <select id="yearSelect">
+          <option value="7">Year 7</option>
+          <option value="8">Year 8</option>
+          <option value="9">Year 9</option>
+          <option value="10">Year 10</option>
+        </select>
+        <div class="small-note">
+          Files expected:<br>
+          assets/year7.xlsx, assets/year8.xlsx, assets/year9.xlsx, assets/year10.xlsx
+        </div>
+      </div>
+      <div class="controls">
+        <label for="subjectSelect"><strong>2. Select subject:</strong></label>
+        <select id="subjectSelect" disabled></select>
+
+        <label for="metricSelect"><strong>Metric:</strong></label>
+        <select id="metricSelect" disabled>
+          <option value="pct1_6">% 1–6 (Distinction + Credit)</option>
+          <option value="pct1_8">% 1–8 (Pass)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Key Performance Indicators</h2>
+      <div id="kpiWrapper" class="kpi-container">
+        <div class="placeholder">Loading data for the selected year...</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="card">
+        <h2>Class Performance by Subject</h2>
+        <p style="font-size:12px; color:#666; margin-top:-4px;">
+          Shows the selected metric for each class in the chosen subject.
+        </p>
+        <div class="chart-wrapper">
+          <canvas id="classChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Subject Comparison (Overall)</h2>
+        <p style="font-size:12px; color:#666; margin-top:-4px;">
+          Compares overall performance across all subjects using the selected metric.
+        </p>
+        <div class="chart-wrapper">
+          <canvas id="subjectChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How to update the data in future</h2>
+      <p style="font-size:13px; color:#555;">
+        In GitHub, simply replace these files (keep the same filenames):
+      </p>
+      <ul style="font-size:13px; color:#555;">
+        <li><code>assets/year7.xlsx</code> &rarr; Year 7 EOY analysis</li>
+        <li><code>assets/year8.xlsx</code> &rarr; Year 8 EOY analysis</li>
+        <li><code>assets/year9.xlsx</code> &rarr; Year 9 EOY analysis</li>
+        <li><code>assets/year10.xlsx</code> &rarr; Year 10 EOY analysis</li>
+      </ul>
+      <p style="font-size:13px; color:#555;">
+        Once replaced and committed, the dashboard will automatically use the new data for that year level.
+      </p>
+    </div>
+  </main>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
