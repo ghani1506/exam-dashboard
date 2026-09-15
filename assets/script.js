@@ -11,10 +11,11 @@ let subjectChart = null;
 
 // Map year selector to internal Excel filenames
 const yearToFile = {
-  "7": "assets/year7.xlsx",
-  "8": "assets/year8.xlsx",
-  "9": "assets/year9.xlsx",
-  "10": "assets/year10.xlsx"
+  "7": "assets/y7.xlsx",
+  "8": "assets/y8.xlsx",
+  "9": "assets/y9.xlsx",
+  "10": "assets/10.xlsx"
+  "11": "assets/10.xlsx"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
