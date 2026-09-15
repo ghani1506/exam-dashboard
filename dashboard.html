@@ -1,44 +1,167 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SMPAPHMASNA Assessment 2 Dashboard 2026 (Years 7–11)</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Excel Reader -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
   <style>
-    body {font-family: Arial, sans-serif; margin:0; background:#f4f6f9; color:#333;}
-    header {background:#004080; color:white; padding:16px 24px;}
-    header h1 {margin:0; font-size:22px;}
-    header p {margin:4px 0 0 0; font-size:13px; opacity:0.9;}
-    main {padding:16px 24px;}
-    .top-bar {display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end; margin-bottom:16px;}
-    .card {background:white; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.08); margin-bottom:16px;}
-    .card h2 {margin-top:0; font-size:18px;}
-    .kpi-container {display:flex; flex-wrap:wrap; gap:16px;}
-    .kpi {flex:1 1 160px; background:#f9fbff; border-radius:8px; padding:12px 14px; border:1px solid #dbe4f0;}
-    .kpi-label {font-size:12px; text-transform:uppercase; color:#666; letter-spacing:0.5px;}
-    .kpi-value {font-size:20px; font-weight:bold; margin-top:4px;}
-    .controls label {font-size:13px; margin-right:6px;}
-    select {padding:6px 8px; font-size:13px;}
-    .charts-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px;}
-    .placeholder {font-size:13px; color:#777;}
-    .chart-wrapper {position:relative; min-height:320px;}
-    canvas {width:100% !important; height:100% !important;}
-    .small-note {font-size:11px; color:#666; margin-top:4px;}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background: #004080;
+      color: white;
+      padding: 16px 24px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    header p {
+      margin: 4px 0 0;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    main {
+      padding: 16px 24px;
+    }
+
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 16px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .kpi-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .kpi {
+      flex: 1 1 160px;
+      background: #f9fbff;
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid #dbe4f0;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #666;
+      letter-spacing: 0.5px;
+    }
+
+    .kpi-value {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    .controls label {
+      font-size: 13px;
+      margin-right: 6px;
+    }
+
+    select {
+      padding: 6px 8px;
+      font-size: 13px;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .placeholder {
+      font-size: 13px;
+      color: #777;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      min-height: 320px;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .chart-description {
+      font-size: 12px;
+      color: #666;
+      margin-top: -4px;
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: #555;
+    }
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>Exam Performance Dashboard</h1>
-    <p>View Assessment 2 performance for Years 7–11. Each year uses its own Excel analysis file stored inside this system (no need to upload each time).</p>
+    <p>
+      View Assessment 2 performance for Years 7–11.
+      Each year uses its own Excel analysis file stored inside this system
+      (no need to upload each time).
+    </p>
   </header>
 
   <main>
+
+    <!-- Controls -->
     <div class="top-bar card">
+
       <div>
-        <label for="yearSelect"><strong>1. Select year level:</strong></label><br />
+        <label for="yearSelect">
+          <strong>1. Select year level:</strong>
+        </label>
+
+        <br>
+
         <select id="yearSelect">
           <option value="7">Year 7</option>
           <option value="8">Year 8</option>
@@ -46,61 +169,111 @@
           <option value="10">Year 10</option>
           <option value="11">Year 11</option>
         </select>
+
         <div class="small-note">
           Files expected:<br>
-          assets/y7.xlsx, assets/y8.xlsx, assets/y9.xlsx, assets/y10.xlsx, assets/y11.xlsx
+          assets/y7.xlsx,<br>
+          assets/y8.xlsx,<br>
+          assets/y9.xlsx,<br>
+          assets/y10.xlsx,<br>
+          assets/y11.xlsx
         </div>
       </div>
+
       <div class="controls">
-        <label for="subjectSelect"><strong>2. Select subject:</strong></label>
-        <select id="subjectSelect" disabled></select>
 
-        <label for="metricSelect"><strong>Metric:</strong></label>
-        <select id="metricSelect" disabled>
-          <option value="pct1_6">% 1–6 (Distinction + Credit)</option>
-          <option value="pct1_8">% 1–8 (Pass)</option>
+        <label for="subjectSelect">
+          <strong>2. Select subject:</strong>
+        </label>
+
+        <select id="subjectSelect" disabled>
+          <option>Loading...</option>
         </select>
+
+        <label for="metricSelect">
+          <strong>Metric:</strong>
+        </label>
+
+        <select id="metricSelect" disabled>
+          <option value="pct1_6">
+            % 1–6 (Distinction + Credit)
+          </option>
+
+          <option value="pct1_8">
+            % 1–8 (Pass)
+          </option>
+        </select>
+
       </div>
     </div>
 
+
+    <!-- KPI Section -->
     <div class="card">
+
       <h2>Key Performance Indicators</h2>
+
       <div id="kpiWrapper" class="kpi-container">
-        <div class="placeholder">Loading data for the selected year...</div>
+        <div class="placeholder">
+          Loading data for the selected year...
+        </div>
       </div>
+
     </div>
 
+
+    <!-- Charts -->
     <div class="charts-grid">
+
+      <!-- Class Chart -->
       <div class="card">
+
         <h2>Class Performance by Subject</h2>
-        <p style="font-size:12px; color:#666; margin-top:-4px;">
+
+        <p class="chart-description">
           Shows the selected metric for each class in the chosen subject.
         </p>
+
         <div class="chart-wrapper">
           <canvas id="classChart"></canvas>
         </div>
+
       </div>
 
+
+      <!-- Subject Chart -->
       <div class="card">
+
         <h2>Subject Comparison (Overall)</h2>
-        <p style="font-size:12px; color:#666; margin-top:-4px;">
+
+        <p class="chart-description">
           Compares overall performance across all subjects using the selected metric.
         </p>
+
         <div class="chart-wrapper">
           <canvas id="subjectChart"></canvas>
         </div>
+
       </div>
+
     </div>
 
+
+    <!-- Footer -->
     <div class="card">
-      <h2>Exam Section SMPAPMASNA</h2>
-      </ul>
-      <p style="font-size:13px; color:#555;">
+
+      <h2>Exam Section SMPAPHMASNA</h2>
+
+      <p class="footer-text">
         Trial for Exam Section
       </p>
+
     </div>
+
   </main>
 
+  <!-- Dashboard JavaScript -->
   <script src="assets/script.js"></script>
+
 </body>
 </html>
