@@ -14,8 +14,8 @@ const yearToFile = {
   "7": "assets/y7.xlsx",
   "8": "assets/y8.xlsx",
   "9": "assets/y9.xlsx",
-  "10": "assets/10.xlsx"
-  "11": "assets/10.xlsx"
+  "10": "assets/y10.xlsx",
+  "11": "assets/y11.xlsx"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
